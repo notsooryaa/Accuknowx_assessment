@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "CSPM Executive Dashboard",
+        "data": {
+            "Cloud Accounts": {
+                "sample-img": "image_source",
+                "sample-reading-1":"This is sample reading 1 of img 1",
+                "sample-reading-2":"This is sample reading 2 of img 1",
+                "sample-reading-3":"This is sample reading 3 of img 1"
+            },
+
+            "Cloud Account Risk Assessment":{
+                "sample-img": "image_source",
+                "sample-reading-1":"This is sample reading 1 of img 2",
+                "sample-reading-2":"This is sample reading 2 of img 2",
+                "sample-reading-3":"This is sample reading 3 of img 2"
+            }
+        }
+
+    },
+
+    {
+        "id": 2,
+        "name": "CWPP Dashboard",
+        "data": {
+            "Top 5 Namespace Specific Alerts": {
+                "sample-img": "image_source",
+                "sample-reading-1":"This is sample reading 1 of img 3",
+                "sample-reading-2":"This is sample reading 2 of img 3",
+                "sample-reading-3":"This is sample reading 3 of img 3"
+            },
+
+            "Workload Alerts": {
+                "sample-img": "image_source",
+                "sample-reading-1":"This is sample reading 1 of img 4",
+                "sample-reading-2":"This is sample reading 2 of img 4",
+                "sample-reading-3":"This is sample reading 3 of img 4"
+            }
+        }
+    }
+]
