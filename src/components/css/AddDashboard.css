@@ -31,8 +31,7 @@
 }
 
 .dashboard-items{
-    height: 100px;
-    width: 700px;
+    height: auto;
 }
 
 @media (max-width: 750px) {

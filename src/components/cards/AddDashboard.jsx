@@ -48,12 +48,12 @@ function EditDashboard({ data, OnClose, onAddDashboard }) {
             <p style={{ padding: "10px", margin: "0" }}>
               Personalise your dashboard by adding the following Widget
             </p>
-            <div className="d-flex flex-row h-50">
+            <div className="d-lg-flex flex-row h-50 col-md-12 d-sm-block p-2">
               {data.map((card, index) => (
                 <>
                 <button
                   type="button"
-                  className="btn btn-secondary mx-2"
+                  className="btn btn-secondary m-2"
                   onClick={() => handleShowItems(card.id)}
                 >
                   {card.name}

@@ -16,8 +16,6 @@ function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(null);
   const [showDashboardForm, setShowDashboardForm] = useState(false);
-  const [newDashboardId, setNewDashboardId] = useState(null);
-
   const handleShowDashboardForm = () => {
     setShowDashboardForm(true); 
 
@@ -55,7 +53,6 @@ function Dashboard() {
     };
 
     setCards([...cards, newCard]);
-    setNewDashboardId(newId);
 
   };
 
@@ -94,13 +91,13 @@ function Dashboard() {
                         reading_2={sectionData["sample-reading-2"]}
                         reading_3={sectionData["sample-reading-3"]}
                       />
-                      {idx === Object.entries(card.data).length - 1 && card.id !== newDashboardId && (
+                      {idx === Object.entries(card.data).length - 1 && (
                         <Add_Widget onAdd={() => handleShowForm(card.id)} />
                       )}
                     </React.Fragment>
                   )
                 )}
-                {card.id === newDashboardId && (<Add_Widget onAdd={() => handleShowForm(card.id)} />)}
+                {Object.keys(card.data).length === 0 && (<Add_Widget onAdd={() => handleShowForm(card.id)} />)}
               </div>
             </div>
             </>
