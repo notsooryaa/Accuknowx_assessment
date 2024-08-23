@@ -17,8 +17,7 @@ function Dashboard() {
   const [selectedCardId, setSelectedCardId] = useState(null);
   const [showDashboardForm, setShowDashboardForm] = useState(false);
   const handleShowDashboardForm = () => {
-    setShowDashboardForm(true); 
-
+    setShowDashboardForm(true);
   };
 
   const handleAddWidget = (newWidgetData) => {
@@ -53,7 +52,28 @@ function Dashboard() {
     };
 
     setCards([...cards, newCard]);
+  };
 
+  const handleUpdateCards = (updatedCards) => {
+    setCards(updatedCards);
+  };
+
+  const handleDeleteWidget = (cardId, sectionName) => {
+    const updatedCards = cards.map((card) => {
+      if (card.id === cardId) {
+        const updatedData = { ...card.data };
+        delete updatedData[sectionName];
+        return { ...card, data: updatedData };
+      }
+      return card;
+    });
+
+    setCards(updatedCards);
+  };
+
+  const handleDeleteElement = (cardId) => {
+    const updatedElements = cards.filter((card) => card.id !== cardId);
+    setCards(updatedElements);
   };
 
   return (
@@ -67,7 +87,6 @@ function Dashboard() {
                 type="button"
                 className="btn btn-light text-dark btn-outline-secondary me-0"
                 onClick={() => handleShowDashboardForm(data.id)}
-                
               >
                 Add Widget +
               </button>
@@ -75,31 +94,40 @@ function Dashboard() {
           </div>
           {cards.map((card) => (
             <>
-            <div className="card mb-4">
-              <div className="container">
-                <h3>{card.name}</h3>
+              <div className="card mb-4 border-dark-subtle" key={card.id}>
+                <div className="d-flex column justify-content-between">
+                  <h3>{card.name}</h3>
+                  <button className="btn btn-secondary px-2 py-1 btn-outline-light"
+                  onClick={() => handleDeleteElement(card.id)}>
+                    X
+                  </button>
+                </div>
+                <div className="each-card row align-items-stretch g-4 px-3 m-0 h-100">
+                  {Object.entries(card.data).map(
+                    ([sectionName, sectionData], idx) => (
+                      <React.Fragment key={sectionName}>
+                        <Dashboard_element
+                          key={sectionName}
+                          title={sectionName}
+                          image={images[sectionData["sample-img"]]}
+                          reading_1={sectionData["sample-reading-1"]}
+                          reading_2={sectionData["sample-reading-2"]}
+                          reading_3={sectionData["sample-reading-3"]}
+                          onDelete={() =>
+                            handleDeleteWidget(card.id, sectionName)
+                          }
+                        />
+                        {idx === Object.entries(card.data).length - 1 && (
+                          <Add_Widget onAdd={() => handleShowForm(card.id)} />
+                        )}
+                      </React.Fragment>
+                    )
+                  )}
+                  {Object.keys(card.data).length === 0 && (
+                    <Add_Widget onAdd={() => handleShowForm(card.id)} />
+                  )}
+                </div>
               </div>
-              <div className="each-card row align-items-stretch g-4 px-3 m-0 h-100">
-                {Object.entries(card.data).map(
-                  ([sectionName, sectionData], idx) => (
-                    <React.Fragment key={sectionName}>
-                      <Dashboard_element
-                        key={sectionName}
-                        title={sectionName}
-                        image={images[sectionData["sample-img"]]}
-                        reading_1={sectionData["sample-reading-1"]}
-                        reading_2={sectionData["sample-reading-2"]}
-                        reading_3={sectionData["sample-reading-3"]}
-                      />
-                      {idx === Object.entries(card.data).length - 1 && (
-                        <Add_Widget onAdd={() => handleShowForm(card.id)} />
-                      )}
-                    </React.Fragment>
-                  )
-                )}
-                {Object.keys(card.data).length === 0 && (<Add_Widget onAdd={() => handleShowForm(card.id)} />)}
-              </div>
-            </div>
             </>
           ))}
           {showForm && (
@@ -116,13 +144,14 @@ function Dashboard() {
           )}
           {showDashboardForm && (
             <>
-              <EditDashboard 
-              data={cards}
-              onAddDashboard={(newDashboard) => {
-                handleAddNewDashboard(newDashboard);
-                setShowDashboardForm(false);
-              }}
-              OnClose={() => setShowDashboardForm(false)} 
+              <EditDashboard
+                data={cards}
+                onAddDashboard={(newDashboard) => {
+                  handleAddNewDashboard(newDashboard);
+                  setShowDashboardForm(false);
+                }}
+                onUpdateCards={handleUpdateCards}
+                OnClose={() => setShowDashboardForm(false)}
               />
             </>
           )}
